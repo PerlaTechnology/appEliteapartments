@@ -19,7 +19,7 @@ class PropertyViewModel @Inject constructor(
     val validationState: LiveData<ValidationState> get() = _validationState
 
     private val _propertyList = MutableLiveData<List<PropertyEntity>>()
-    val propertyList: LiveData<List<PropertyEntity>> = _propertyList
+    val propertyAllList: LiveData<List<PropertyEntity>> = _propertyList
 
     private val _typesProperties = MutableLiveData<List<String>>()
     val typesProperties: LiveData<List<String>> = _typesProperties

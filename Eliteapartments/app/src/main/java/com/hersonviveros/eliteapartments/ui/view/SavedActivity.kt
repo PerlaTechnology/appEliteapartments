@@ -11,9 +11,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
+import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
+import com.hersonviveros.eliteapartments.ui.adapter.PhotoItemTouchHelperCallback
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
@@ -28,6 +31,7 @@ class SavedActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySavedBinding
     private val viewModel: PropertyViewModel by viewModels()
     private var selectedItem: String = EMPTY
+    private val photoAdapter = ImagesAdapter()
 
     private val imageUris = mutableListOf<Uri>()
 
@@ -41,6 +45,7 @@ class SavedActivity : AppCompatActivity() {
             imageUris.clear()
             imageUris.addAll(uris)
             // Ahora puedes guardar las imágenes o hacer cualquier otra cosa con ellas
+            photoAdapter.setData(imageUris)
 
         }
 
@@ -60,6 +65,7 @@ class SavedActivity : AppCompatActivity() {
 
         observe()
         permission()
+        setupPhotoRecyclerView()
 
         binding.btnSaveProperty.setOnClickListener {
             savedData()
@@ -71,7 +77,7 @@ class SavedActivity : AppCompatActivity() {
 
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         setSupportActionBar(binding.include.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.create_new_properties)
@@ -106,6 +112,11 @@ class SavedActivity : AppCompatActivity() {
             configureSpinner(list)
         }
 
+        viewModel.propertyAllList.observe(this) { listProperties ->
+            if (listProperties.isNotEmpty()) {
+                //photoAdapter.setData(listProperties!!)
+            }
+        }
 
         viewModel.validationState.observe(this) { state ->
             if (state == null) return@observe
@@ -150,6 +161,13 @@ class SavedActivity : AppCompatActivity() {
                     // Opcional: Acción a realizar si no se selecciona ningún elemento
                 }
             }
+    }
+
+    private fun setupPhotoRecyclerView() {
+        binding.rvImages.adapter = photoAdapter
+
+        val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
+        touchHelper.attachToRecyclerView(binding.rvImages)
     }
 
     private fun permission() {
