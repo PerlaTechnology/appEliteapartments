@@ -6,14 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hersonviveros.eliteapartments.R
+import com.hersonviveros.eliteapartments.utils.ItemTouchHelperAdapter
 
-interface ItemTouchHelperAdapter {
-    fun onItemMove(fromPosition: Int, toPosition: Int)
-}
 
 class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ViewHolders>(), ItemTouchHelperAdapter {
 
@@ -54,28 +51,3 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ViewHolders>(), ItemTou
     }
 }
 
-class PhotoItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) :
-    ItemTouchHelper.Callback() {
-
-    override fun getMovementFlags(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder
-    ): Int = makeMovementFlags(
-        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-        0
-    )
-
-    override fun onMove(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        target: RecyclerView.ViewHolder
-    ): Boolean {
-        adapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
-        return true
-    }
-
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-
-    override fun isLongPressDragEnabled() = true
-    override fun isItemViewSwipeEnabled() = false
-}

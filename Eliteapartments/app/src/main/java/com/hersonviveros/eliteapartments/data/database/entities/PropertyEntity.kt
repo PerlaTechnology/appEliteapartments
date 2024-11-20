@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "PropertyTable", indices = [Index(value = ["id"], unique = true)])
 data class PropertyEntity(
@@ -16,4 +17,4 @@ data class PropertyEntity(
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "photos") val photos: List<String>,  // Fotos en formato JSON o URL
     @ColumnInfo(name = "location") val location: String
-)
+):Serializable

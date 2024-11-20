@@ -7,6 +7,7 @@ import javax.inject.Singleton
 
 @Singleton
 class PropertyRepository @Inject constructor(private val propertyDao: PropertyDao) {
+    
     suspend fun insertProperty(property: PropertyEntity) {
         propertyDao.insert(property)
     }

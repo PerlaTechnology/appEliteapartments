@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_properties"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/img_go"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/img_properties"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_go"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_properties"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/img_go"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tv_subTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/img_go"
+            tools:text="Title" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

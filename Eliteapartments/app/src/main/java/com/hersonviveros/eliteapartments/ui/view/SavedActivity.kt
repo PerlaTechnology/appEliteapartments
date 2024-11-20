@@ -1,7 +1,10 @@
 package com.hersonviveros.eliteapartments.ui.view
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,22 +12,23 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
 import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
-import com.hersonviveros.eliteapartments.ui.adapter.PhotoItemTouchHelperCallback
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
 import com.hersonviveros.eliteapartments.utils.Permissions
+import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import com.rengwuxian.materialedittext.MaterialEditText
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
 
+@Suppress("LABEL_NAME_CLASH")
 @AndroidEntryPoint
 class SavedActivity : AppCompatActivity() {
 
@@ -54,13 +58,6 @@ class SavedActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupToolbar()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         observe()
         permission()
         setupPhotoRecyclerView()
@@ -79,6 +76,7 @@ class SavedActivity : AppCompatActivity() {
         setSupportActionBar(binding.include.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.create_new_properties)
+        binding.include.toolbar.setNavigationOnClickListener { finish() }
     }
 
     private fun openImages() {
@@ -115,27 +113,20 @@ class SavedActivity : AppCompatActivity() {
             configureSpinner(list)
         }
 
-        viewModel.propertyAllList.observe(this) { listProperties ->
-            if (listProperties.isNotEmpty()) {
-                //photoAdapter.setData(listProperties!!)
-            }
-        }
-
         viewModel.validationState.observe(this) { state ->
             if (state == null) return@observe
             when (state) {
                 PropertyViewModel.ValidationState.VALID -> {
-                    //Si es válido, podemos proceder con el guardado o actualización
                     showToast("La propiedad es válida")
+                    startActivity(Intent(this, PropertyActivity::class.java))
+                    finish()
                 }
 
                 PropertyViewModel.ValidationState.INVALID -> {
-                    //Si los valores no son válidos (por ejemplo, enteros negativos)
                     showToast("Hay datos incorrectos, revise los campos numéricos.")
                 }
 
                 PropertyViewModel.ValidationState.EMPTY_FIELDS -> {
-                    //Si faltan campos por llenar
                     showToast("Por favor, complete todos los campos.")
                 }
             }
@@ -168,13 +159,25 @@ class SavedActivity : AppCompatActivity() {
 
     private fun setupPhotoRecyclerView() {
         binding.rvImages.adapter = photoAdapter
-
         val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
         touchHelper.attachToRecyclerView(binding.rvImages)
     }
 
-    fun convertUriListToStringList(uriList: List<Uri?>): List<String> {
-        return uriList.mapNotNull { it?.toString() }
+    private fun convertUriListToStringList(uriList: List<Uri?>): List<String> {
+        return uriList.mapNotNull {
+            saveImageToInternalStorage(it!!)
+        }
+    }
+
+    private fun saveImageToInternalStorage(uri: Uri): String {
+        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        val fileName = "property_${System.currentTimeMillis()}.jpg"
+
+        val file = File(filesDir, fileName)
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+        }
+        return file.absolutePath
     }
 
     private fun permission() {

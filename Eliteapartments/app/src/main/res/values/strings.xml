@@ -11,5 +11,7 @@
     <string name="crear_una_propiedad">Crear una Propiedad</string>
     <string name="ver_propiedades">Ver Propiedades</string>
     <string name="error_edt">El campo no puede estar vacío</string>
+    <string name="properties">Propiedades</string>
     <string name="create_new_properties">Crear propiedad</string>
+    <string name="empty_property">Aun no ha creado propiedades</string>
 </resources>

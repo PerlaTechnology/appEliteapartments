@@ -30,6 +30,12 @@ class PropertyViewModel @Inject constructor(
         EMPTY_FIELDS
     }
 
+    fun allProperties(){
+        viewModelScope.launch {
+            _propertyList.value = repository.getAllProperties()
+        }
+    }
+
     fun listProperties() {
         _typesProperties.value = listOf(
             "Apartamento",
@@ -69,7 +75,6 @@ class PropertyViewModel @Inject constructor(
         viewModelScope.launch {
             if (!validateProperty(property)) return@launch
             repository.insertProperty(property)
-            _propertyList.value = repository.getAllProperties()
         }
     }
 }
