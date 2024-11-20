@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -13,6 +16,8 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        renderscriptSupportModeEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,11 +29,22 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+    }
+    buildFeatures{
+        buildConfig = true
+        viewBinding = true
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
     }
 }
 
@@ -39,7 +55,50 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+
     testImplementation libs.junit
+    testImplementation 'org.mockito:mockito-core:5.3.1'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+
+    // Fragment
+    implementation libs.androidx.fragment.ktx
+    //CircleImage
+    implementation libs.circleimageview
+    // Activity
+    implementation libs.androidx.activity.ktx
+    // ViewModel
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    // LiveData
+    implementation libs.androidx.lifecycle.livedata.ktx
+    //Corrutinas
+    implementation libs.kotlinx.coroutines.android
+    //Hilt
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    //Room
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
+    //Animacion
+    implementation libs.shimmer
+    //Glide
+    implementation libs.glide
+    kapt libs.compiler
+    annotationProcessor libs.compiler
+    implementation (libs.okhttp3.integration){
+        exclude group: 'glide-parent'
+    }
+    //Squareup
+    implementation libs.okhttp
+
+    implementation libs.library
+    implementation libs.androidx.drawerlayout
+    implementation libs.gson
+}
+
+kapt {
+    correctErrorTypes true
 }
