@@ -1,7 +1,12 @@
 package com.hersonviveros.eliteapartments.ui.view
 
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +15,10 @@ import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
+import com.hersonviveros.eliteapartments.utils.Permissions
 import com.rengwuxian.materialedittext.MaterialEditText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,11 +27,31 @@ class SavedActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySavedBinding
     private val viewModel: PropertyViewModel by viewModels()
+    private var selectedItem: String = EMPTY
+
+    private val imageUris = mutableListOf<Uri>()
+
+    private val pickImages =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
+            if (uris.size > 5) {
+                //Notificar al usuario que solo puede seleccionar hasta 5 imágenes
+                showToast("SOlo 5 imagenes")
+                return@registerForActivityResult
+            }
+            imageUris.clear()
+            imageUris.addAll(uris)
+            // Ahora puedes guardar las imágenes o hacer cualquier otra cosa con ellas
+
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySavedBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupToolbar()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -30,17 +59,40 @@ class SavedActivity : AppCompatActivity() {
         }
 
         observe()
+        permission()
 
+        binding.btnSaveProperty.setOnClickListener {
+            savedData()
+        }
+
+        binding.btnAddPhotos.setOnClickListener {
+            openImages()
+        }
+
+    }
+
+    private fun setupToolbar(){
+        setSupportActionBar(binding.include.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = getString(R.string.create_new_properties)
+    }
+
+    private fun openImages() {
+        Permissions(this).takePermission(REQUEST_CODE_READ_MEMORY) { bool ->
+            if (bool) {
+                pickImages.launch("image/*")
+            }
+        }
     }
 
     private fun savedData() {
         val property = PropertyEntity(
             propertyType = binding.spinnerPropertyType.toString(),
-            maxGuests = convert(binding.editTextMaxGuests).toInt(),
-            beds = convert(binding.editTextBeds).toInt(),
-            bathrooms = convert(binding.editTextBaths).toInt(),
-            title = convert(binding.editTextTitle),
-            description = convert(binding.editTextDescription),
+            maxGuests = convertInt(binding.editTextMaxGuests),
+            beds = convertInt(binding.editTextBeds),
+            bathrooms = convertInt(binding.editTextBaths),
+            title = convertStr(binding.editTextTitle),
+            description = convertStr(binding.editTextDescription),
             photos = listOf(),  // Aquí deberías implementar la carga de fotos
             location = "" // Implementa la integración con el mapa
         )
@@ -48,6 +100,13 @@ class SavedActivity : AppCompatActivity() {
     }
 
     private fun observe() {
+        viewModel.listProperties()
+
+        viewModel.typesProperties.observe(this) { list ->
+            configureSpinner(list)
+        }
+
+
         viewModel.validationState.observe(this) { state ->
             if (state == null) return@observe
             when (state) {
@@ -69,15 +128,53 @@ class SavedActivity : AppCompatActivity() {
         }
     }
 
+    private fun configureSpinner(list: List<String>) {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerPropertyType.adapter = adapter
+
+        binding.spinnerPropertyType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    selectedItem = parent?.getItemAtPosition(position).toString()
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Opcional: Acción a realizar si no se selecciona ningún elemento
+                }
+            }
+    }
+
+    private fun permission() {
+        Permissions(this).takePermission(REQUEST_CODE_WRITE_MEMORY) {}
+        Permissions(this).takePermission(REQUEST_CODE_READ_MEMORY) {}
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun convert(edt: MaterialEditText): String {
+    private fun convertStr(edt: MaterialEditText): String {
         val tex = edt.text.toString()
         if (tex.isEmpty()) {
             edt.error = getString(R.string.error_edt)
         }
         return tex
+    }
+
+    private fun convertInt(edt: MaterialEditText): Int {
+        var tex = edt.text.toString()
+        if (tex.isEmpty()) {
+            edt.error = getString(R.string.error_edt)
+            tex = "0"
+        }
+        return tex.toInt()
     }
 }

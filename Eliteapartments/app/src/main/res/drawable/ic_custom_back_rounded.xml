@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray" />
+            <corners android:radius="16dp" /> <!-- Ajusta el radio según lo necesites -->
+            <padding
+                android:bottom="4dp"
+                android:left="4dp"
+                android:right="4dp"
+                android:top="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:padding="10dp"
+            android:shape="rectangle">
+            <solid android:color="@color/gray" />
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+    <item
+        android:width="23dp"
+        android:height="23dp"
+        android:drawable="@drawable/ic_custom_back"
+        android:gravity="center" />
+</layer-list>
