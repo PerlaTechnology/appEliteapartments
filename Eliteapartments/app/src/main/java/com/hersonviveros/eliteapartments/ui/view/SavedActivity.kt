@@ -37,14 +37,12 @@ class SavedActivity : AppCompatActivity() {
 
     private val pickImages =
         registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
-            if (uris.size > 5) {
-                //Notificar al usuario que solo puede seleccionar hasta 5 imágenes
-                showToast("SOlo 5 imagenes")
-                return@registerForActivityResult
+            if (uris.size < 5) {
+                showToast("Sube al menos 5 fotos")
             }
             imageUris.clear()
             imageUris.addAll(uris)
-            // Ahora puedes guardar las imágenes o hacer cualquier otra cosa con ellas
+
             photoAdapter.setData(imageUris)
 
         }
@@ -92,15 +90,20 @@ class SavedActivity : AppCompatActivity() {
     }
 
     private fun savedData() {
+        if (imageUris.size < 5) {
+            showToast("Sube al menos 5 fotos")
+            return
+        }
+        val uriStrings = convertUriListToStringList(imageUris)
         val property = PropertyEntity(
-            propertyType = binding.spinnerPropertyType.toString(),
+            propertyType = selectedItem,
             maxGuests = convertInt(binding.editTextMaxGuests),
             beds = convertInt(binding.editTextBeds),
             bathrooms = convertInt(binding.editTextBaths),
             title = convertStr(binding.editTextTitle),
             description = convertStr(binding.editTextDescription),
-            photos = listOf(),  // Aquí deberías implementar la carga de fotos
-            location = "" // Implementa la integración con el mapa
+            photos = uriStrings,
+            location = "3°27′00″N"
         )
         viewModel.addProperty(property)
     }
@@ -168,6 +171,10 @@ class SavedActivity : AppCompatActivity() {
 
         val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
         touchHelper.attachToRecyclerView(binding.rvImages)
+    }
+
+    fun convertUriListToStringList(uriList: List<Uri?>): List<String> {
+        return uriList.mapNotNull { it?.toString() }
     }
 
     private fun permission() {
