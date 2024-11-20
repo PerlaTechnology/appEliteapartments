@@ -14,6 +14,9 @@ interface PropertyDao {
     @Query("SELECT * FROM PropertyTable")
     suspend fun getAll(): PropertyEntity?
 
+    @Query("SELECT * FROM PropertyTable")
+    suspend fun getAllProperties(): List<PropertyEntity>
+
     @Query("SELECT * FROM PropertyTable WHERE id = :id")
     suspend fun getById(id: String): PropertyEntity?
 

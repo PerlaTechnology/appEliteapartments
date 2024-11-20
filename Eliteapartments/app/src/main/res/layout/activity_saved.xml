@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.SavedActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <!-- Tipo de propiedad -->
+        <Spinner
+            android:id="@+id/spinner_property_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Máximo de huéspedes -->
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_text_max_guests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/maximo_huespedes"
+            android:inputType="number"
+            android:maxLength="5"
+            app:met_floatingLabel="highlight" />
+
+        <!-- Camas por propiedad -->
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_text_beds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/camas_por_propiedad"
+            android:inputType="number"
+            android:maxLength="4"
+            app:met_floatingLabel="highlight" />
+
+        <!-- Cantidad de baños -->
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_text_baths"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cantidad_banos"
+            android:inputType="number"
+            android:maxLength="4"
+            app:met_floatingLabel="highlight" />
+
+        <!-- Título de la propiedad -->
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/titulo_propiedad"
+            android:maxLength="24"
+            app:met_floatingLabel="highlight" />
+
+        <!-- Descripción de la propiedad -->
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/descripcion_propiedad"
+            android:inputType="textMultiLine"
+            android:maxLength="124"
+            app:met_floatingLabel="highlight" />
+
+        <!-- Fotos -->
+        <Button
+            android:id="@+id/button_add_photos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/agregar_fotos" />
+
+        <!-- Botón para guardar la propiedad -->
+        <Button
+            android:id="@+id/button_save_property"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/guardar_propiedad" />
+
+    </LinearLayout>
+
+</ScrollView>

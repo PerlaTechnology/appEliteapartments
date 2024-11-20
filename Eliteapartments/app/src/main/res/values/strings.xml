@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Eliteapartments</string>
+    <string name="maximo_huespedes">Máximo de huéspedes</string>
+    <string name="camas_por_propiedad">Camas por propiedad</string>
+    <string name="cantidad_banos">Cantidad de baños</string>
+    <string name="titulo_propiedad">Título de la propiedad</string>
+    <string name="descripcion_propiedad">Descripción de la propiedad</string>
+    <string name="agregar_fotos">Agregar Fotos</string>
+    <string name="guardar_propiedad">Guardar Propiedad</string>
 </resources>
