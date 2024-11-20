@@ -7,4 +7,8 @@
     <string name="descripcion_propiedad">Descripción de la propiedad</string>
     <string name="agregar_fotos">Agregar Fotos</string>
     <string name="guardar_propiedad">Guardar Propiedad</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="crear_una_propiedad">Crear una Propiedad</string>
+    <string name="ver_propiedades">Ver Propiedades</string>
+    <string name="error_edt">El campo no puede estar vacío</string>
 </resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Para archivos en el almacenamiento interno de la app -->
+    <files-path
+        name="files"
+        path="." />
+
+    <!-- Para archivos en la caché -->
+    <cache-path
+        name="cache"
+        path="." />
+
+    <!-- Para archivos en el almacenamiento externo público -->
+    <external-path
+        name="external"
+        path="." />
+
+    <!-- Para archivos en el almacenamiento externo específico de la app -->
+    <external-files-path
+        name="external_files"
+        path="." />
+
+    <!-- Para archivos en el directorio Download -->
+    <external-path
+        name="downloads"
+        path="Download" />
+</paths>

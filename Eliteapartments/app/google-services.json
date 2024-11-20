@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28098819134",
+    "project_id": "elite-611f4",
+    "storage_bucket": "elite-611f4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28098819134:android:7e917afa17f0508ae48d6f",
+        "android_client_info": {
+          "package_name": "com.hersonviveros.eliteapartments"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh_7bzKV1_cDj9XltFqn10t_eT4YBQPu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
