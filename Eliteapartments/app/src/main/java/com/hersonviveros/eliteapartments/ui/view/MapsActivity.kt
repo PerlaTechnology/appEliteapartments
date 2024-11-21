@@ -20,13 +20,14 @@ import com.hersonviveros.eliteapartments.data.database.entities.Position
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivityMapsBinding
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT_DETAIL
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.TYPE_DETAIL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding

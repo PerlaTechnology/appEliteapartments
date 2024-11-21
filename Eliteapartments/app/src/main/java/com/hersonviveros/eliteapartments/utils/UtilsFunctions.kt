@@ -1,4 +1,4 @@
-package com.hersonviveros.eliteapartments.ui.view
+package com.hersonviveros.eliteapartments.utils
 
 import android.annotation.SuppressLint
 import android.os.Build

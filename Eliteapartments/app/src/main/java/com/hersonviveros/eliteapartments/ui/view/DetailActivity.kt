@@ -4,23 +4,24 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivityDetailBinding
 import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
+import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT_DETAIL
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.TYPE_DETAIL
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
+import com.hersonviveros.eliteapartments.utils.fromHtml
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
 
 @AndroidEntryPoint
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private val photoAdapter = ImagesAdapter()

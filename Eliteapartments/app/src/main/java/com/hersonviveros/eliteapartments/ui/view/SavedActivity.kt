@@ -18,6 +18,7 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
 import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
@@ -31,7 +32,7 @@ import java.io.FileOutputStream
 
 @Suppress("LABEL_NAME_CLASH")
 @AndroidEntryPoint
-class SavedActivity : AppCompatActivity() {
+class SavedActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySavedBinding
     private val viewModel: PropertyViewModel by viewModels()

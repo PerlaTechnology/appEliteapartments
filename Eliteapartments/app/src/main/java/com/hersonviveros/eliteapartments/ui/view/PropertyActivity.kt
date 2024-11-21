@@ -12,12 +12,13 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivityPropertyBinding
 import com.hersonviveros.eliteapartments.ui.adapter.PropertyAdapter
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PropertyActivity : AppCompatActivity() {
+class PropertyActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPropertyBinding
     private val viewModel: PropertyViewModel by viewModels()

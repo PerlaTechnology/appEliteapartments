@@ -8,10 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.databinding.ActivityMainBinding
+import com.hersonviveros.eliteapartments.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -33,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnViewProperty.setOnClickListener {
             startActivity(Intent(this, PropertyActivity::class.java))
+        }
+
+        binding.btnTheme.setOnClickListener {
+           toggleTheme()
         }
 
     }
