@@ -51,7 +51,7 @@ class PropertyViewModel @Inject constructor(
 
     private fun validateProperty(property: PropertyEntity): Boolean {
         if (property.propertyType.isBlank() || property.title.isBlank() ||
-            property.description.isBlank() || property.location.isBlank()
+            property.description.isBlank()
         ) {
             _validationState.value = ValidationState.EMPTY_FIELDS
             return false
@@ -71,7 +71,20 @@ class PropertyViewModel @Inject constructor(
         return true
     }
 
-    fun addProperty(property: PropertyEntity) {
+    fun updateProperty(property: PropertyEntity){
+        viewModelScope.launch {
+            if (!validateProperty(property)) return@launch
+            repository.updateProperties(property)
+        }
+    }
+
+    fun validProperty(property: PropertyEntity) {
+        viewModelScope.launch {
+            if (!validateProperty(property)) return@launch
+        }
+    }
+
+    fun createProperty(property: PropertyEntity) {
         viewModelScope.launch {
             if (!validateProperty(property)) return@launch
             repository.insertProperty(property)

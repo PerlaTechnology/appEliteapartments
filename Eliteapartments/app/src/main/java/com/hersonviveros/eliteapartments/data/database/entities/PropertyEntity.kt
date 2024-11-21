@@ -16,5 +16,11 @@ data class PropertyEntity(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "photos") val photos: List<String>,  // Fotos en formato JSON o URL
-    @ColumnInfo(name = "location") val location: String
-):Serializable
+    @ColumnInfo(name = "location") var location: List<Position>
+) : Serializable
+
+
+data class Position(
+    var latitud: Double,
+    var longitud: Double
+) : Serializable

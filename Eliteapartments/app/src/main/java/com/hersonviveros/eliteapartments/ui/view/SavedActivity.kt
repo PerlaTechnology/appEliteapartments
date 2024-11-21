@@ -18,6 +18,7 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
 import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
@@ -36,7 +37,7 @@ class SavedActivity : AppCompatActivity() {
     private val viewModel: PropertyViewModel by viewModels()
     private var selectedItem: String = EMPTY
     private val photoAdapter = ImagesAdapter()
-
+    private lateinit var property: PropertyEntity
     private val imageUris = mutableListOf<Uri>()
 
     private val pickImages =
@@ -93,7 +94,7 @@ class SavedActivity : AppCompatActivity() {
             return
         }
         val uriStrings = convertUriListToStringList(imageUris)
-        val property = PropertyEntity(
+        property = PropertyEntity(
             propertyType = selectedItem,
             maxGuests = convertInt(binding.editTextMaxGuests),
             beds = convertInt(binding.editTextBeds),
@@ -101,9 +102,9 @@ class SavedActivity : AppCompatActivity() {
             title = convertStr(binding.editTextTitle),
             description = convertStr(binding.editTextDescription),
             photos = uriStrings,
-            location = "3°27′00″N"
+            location = listOf()
         )
-        viewModel.addProperty(property)
+        viewModel.validProperty(property)
     }
 
     private fun observe() {
@@ -118,7 +119,10 @@ class SavedActivity : AppCompatActivity() {
             when (state) {
                 PropertyViewModel.ValidationState.VALID -> {
                     showToast("La propiedad es válida")
-                    startActivity(Intent(this, PropertyActivity::class.java))
+
+                    val intent = Intent(this, MapsActivity::class.java)
+                    intent.putExtra(DATA_INTENT, property)
+                    startActivity(intent)
                     finish()
                 }
 

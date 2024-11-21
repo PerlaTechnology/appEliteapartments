@@ -12,6 +12,10 @@ class PropertyRepository @Inject constructor(private val propertyDao: PropertyDa
         propertyDao.insert(property)
     }
 
+    suspend fun updateProperties(property: PropertyEntity) {
+        return propertyDao.update(property)
+    }
+
     suspend fun getAllProperties(): List<PropertyEntity> {
         return propertyDao.getAllProperties()
     }

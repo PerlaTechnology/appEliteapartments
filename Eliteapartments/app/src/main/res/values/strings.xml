@@ -5,7 +5,7 @@
     <string name="cantidad_banos">Cantidad de baños</string>
     <string name="titulo_propiedad">Título de la propiedad</string>
     <string name="descripcion_propiedad">Descripción de la propiedad</string>
-    <string name="agregar_fotos">Agregar Fotos</string>
+    <string name="agregar_fotos">Fotos de la propiedad</string>
     <string name="guardar_propiedad">Guardar Propiedad</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="crear_una_propiedad">Crear una Propiedad</string>
@@ -14,4 +14,5 @@
     <string name="properties">Propiedades</string>
     <string name="create_new_properties">Crear propiedad</string>
     <string name="empty_property">Aun no ha creado propiedades</string>
+    <string name="ubicacion_propiedad">Ubicación de la propiedad</string>
 </resources>
