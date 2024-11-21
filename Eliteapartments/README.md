@@ -34,10 +34,6 @@ Biblioteca de persistencia de datos que simplifica el acceso y almacenamiento de
 datos en una base de datos SQLite en dispositivos Android, utilizando una arquitectura
 basada en componentes para integrarse fácilmente con otras bibliotecas de Android.
 
-**Retrofit2**
-Biblioteca de cliente HTTP para Android y Java que hace que sea más
-fácil consumir servicios web RESTful.
-
 **Kotlin**
 Kotlin es un lenguaje de programación moderno y seguro que se ha convertido en
 la opción preferida de nosotros los desarrolladores para el desarrollo de aplicaciones

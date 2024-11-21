@@ -69,6 +69,7 @@ class SavedActivity : BaseActivity() {
 
     private fun updateListImages() {
         photoAdapter = ImagesAdapter { updateList ->
+            imageUris.clear()
             imageUris.addAll(updateList)
         }
         binding.rvImages.adapter = photoAdapter
@@ -76,12 +77,12 @@ class SavedActivity : BaseActivity() {
     }
 
     private fun resultImages(uris: List<Uri>) {
+        imageUris.clear()
         if (uris.size < 5) {
             showToast(getString(R.string.sube_fotos))
         }  else {
             updateListImages()
         }
-        imageUris.clear()
         imageUris.addAll(uris)
 
         photoAdapter.setData(imageUris)

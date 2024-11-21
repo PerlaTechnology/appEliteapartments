@@ -1,5 +1,6 @@
 package com.hersonviveros.eliteapartments.ui.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -34,12 +35,14 @@ class PropertyActivity : BaseActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observer() {
         viewModel.propertyAllList.observe(this) { listProperties ->
             if (listProperties.isNotEmpty()) {
                 propertyAdapter.setData(listProperties!!)
                 binding.tvEmpty.visibility = View.GONE
             } else {
+                propertyAdapter.setData(listOf())
                 binding.tvEmpty.visibility = View.VISIBLE
             }
         }
