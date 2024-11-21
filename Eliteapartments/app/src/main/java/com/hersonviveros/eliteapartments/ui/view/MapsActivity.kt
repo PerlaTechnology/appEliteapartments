@@ -12,6 +12,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.Position
@@ -19,6 +21,8 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivityMapsBinding
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT_DETAIL
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.TYPE_DETAIL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var selectedLongitude: Double = 0.0
     private lateinit var position: Position
     private val viewModel: PropertyViewModel by viewModels()
+    private var viewType: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun configureBundle() {
         try {
+            val bundle: Bundle? = intent.extras
+            viewType = bundle?.getInt(DATA_INTENT_DETAIL) ?: 0
+
             entity = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getSerializableExtra(
                     DATA_INTENT,
@@ -79,32 +87,63 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.isZoomControlsEnabled = true
 
-        // Listener de clics en el mapa
-        map.setOnMapClickListener { latLng ->
-            // Limpiar marcadores previos
+        if (viewType == TYPE_DETAIL) {
+
             map.clear()
 
-            // Actualizar coordenadas
-            selectedLatitude = latLng.latitude
-            selectedLongitude = latLng.longitude
+            val boundsBuilder = LatLngBounds.Builder()
 
-            // Añadir marcador donde el USUARIO hace clic
-            map.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("Ubicación de la Propiedad")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-            )
+            entity.location.forEach { location ->
+                val latLng = LatLng(location.latitud, location.longitud)
 
-            // Mover cámara al punto seleccionado
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                map.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                )
 
-            // Configuración del listener para el marcador
-            map.setOnMarkerClickListener { marker ->
-                showLocationSavedDialog()
-                true
+                boundsBuilder.include(latLng)
+            }
+            //Ajustar cámara
+            try {
+                val bounds = boundsBuilder.build()
+                val padding = 100
+                val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                map.moveCamera(cameraUpdate)
+
+            } catch (e: IllegalStateException) {
+                finish()
+                e.printStackTrace()
+            }
+
+        } else {
+            // Listener de clics en el mapa
+            map.setOnMapClickListener { latLng ->
+                // Limpiar marcadores previos
+                map.clear()
+
+                // Actualizar coordenadas
+                selectedLatitude = latLng.latitude
+                selectedLongitude = latLng.longitude
+
+                // Añadir marcador donde el USUARIO hace clic
+                map.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title("Ubicación de la Propiedad")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+
+                // Mover cámara al punto seleccionado
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
+                // Configuración del listener para el marcador
+                map.setOnMarkerClickListener {
+                    showLocationSavedDialog()
+                    true
+                }
             }
         }
+
     }
 
 

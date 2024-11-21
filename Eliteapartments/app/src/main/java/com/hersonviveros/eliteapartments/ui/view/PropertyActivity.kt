@@ -1,5 +1,6 @@
 package com.hersonviveros.eliteapartments.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -11,6 +12,7 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivityPropertyBinding
 import com.hersonviveros.eliteapartments.ui.adapter.PropertyAdapter
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,7 +57,9 @@ class PropertyActivity : AppCompatActivity() {
     }
 
     private fun moreClickedAdapter(propertyEntity: PropertyEntity) {
-
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DATA_INTENT, propertyEntity)
+        startActivity(intent)
     }
 
 

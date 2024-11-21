@@ -15,4 +15,10 @@
     <string name="create_new_properties">Crear propiedad</string>
     <string name="empty_property">Aun no ha creado propiedades</string>
     <string name="ubicacion_propiedad">Ubicación de la propiedad</string>
+    <string name="ver_ubicacion">Ver ubicación</string>
+    <string name="tipo">Tipo</string>
+    <string name="huesped">Huéspedes</string>
+    <string name="camas">Camas</string>
+    <string name="banos">Baños</string>
+    <string name="detalles">Detalles</string>
 </resources>
