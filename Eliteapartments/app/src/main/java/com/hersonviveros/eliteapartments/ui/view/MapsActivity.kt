@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -130,7 +129,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
                 map.addMarker(
                     MarkerOptions()
                         .position(latLng)
-                        .title("Ubicación de la Propiedad")
+                        .title(getString(R.string.ubicacion_propiedad))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                 )
 
@@ -150,15 +149,15 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun showLocationSavedDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Confirma la ubicación de la propiedad?")
+        builder.setTitle(getString(R.string.title_saved))
 
-        builder.setMessage("La ubicación no ha sido guardada. ¿Deseas guardarla ahora?")
-            .setPositiveButton("Sí") { dialog, _ ->
+        builder.setMessage(getString(R.string.subtitle_saved))
+            .setPositiveButton(getString(R.string.si)) { dialog, _ ->
                 // Aquí agregas el código para guardar la ubicación
                 saveLocation()
                 dialog.dismiss()
             }
-            .setNegativeButton("No") { dialog, _ ->
+            .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -179,7 +178,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
             startActivity(Intent(this, PropertyActivity::class.java))
             finish()
         } else {
-            Toast.makeText(this, "Selecciona una ubicación", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.selected_ubication), Toast.LENGTH_SHORT).show()
         }
     }
 }

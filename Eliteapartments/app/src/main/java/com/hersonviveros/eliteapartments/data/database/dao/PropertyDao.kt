@@ -15,9 +15,6 @@ interface PropertyDao {
     @Query("SELECT * FROM PropertyTable")
     fun getAllProperties(): LiveData<List<PropertyEntity>>
 
-    @Query("SELECT * FROM PropertyTable WHERE id = :id")
-    suspend fun getById(id: String): PropertyEntity?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: PropertyEntity)
 

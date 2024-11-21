@@ -5,11 +5,11 @@
     android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="@dimen/_10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="5dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    android:padding="@dimen/_5dp"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardElevation="@dimen/_5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,29 +18,29 @@
         <ImageView
             android:id="@+id/img_properties"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
             tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/img_go"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
             android:layout_below="@+id/img_properties"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:src="@drawable/ic_go"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img_properties"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="@dimen/_5dp"
             android:layout_toStartOf="@+id/img_go"
-            style="@style/EditTextStyle"
             android:textStyle="bold"
             tools:text="Title" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:layout_toStartOf="@+id/img_go"
-            android:padding="5dp"
+            android:padding="@dimen/_5dp"
             tools:text="Title" />
 
     </RelativeLayout>

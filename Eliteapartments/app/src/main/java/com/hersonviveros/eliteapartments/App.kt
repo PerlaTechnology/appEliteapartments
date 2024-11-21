@@ -3,6 +3,8 @@ package com.hersonviveros.eliteapartments
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.APP_SETTINGS
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.DARK_MODE
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -15,8 +17,8 @@ class App : Application() {
     }
 
     private fun setDefaultNightMode() {
-        val isDarkModeEnabled = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-            .getBoolean("dark_mode", false)
+        val isDarkModeEnabled = getSharedPreferences(APP_SETTINGS, Context.MODE_PRIVATE)
+            .getBoolean(DARK_MODE, false)
 
         AppCompatDelegate.setDefaultNightMode(
             if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES

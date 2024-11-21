@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.hersonviveros.eliteapartments.R
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.APP_SETTINGS
+import com.hersonviveros.eliteapartments.utils.Constants.Companion.DARK_MODE
 
 abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,15 +36,13 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         // Guardar preferencia
-        getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        getSharedPreferences(APP_SETTINGS, Context.MODE_PRIVATE)
             .edit()
-            .putBoolean("dark_mode", newNightMode == AppCompatDelegate.MODE_NIGHT_YES)
+            .putBoolean(DARK_MODE, newNightMode == AppCompatDelegate.MODE_NIGHT_YES)
             .apply()
 
-        // Aplicar nuevo modo
         AppCompatDelegate.setDefaultNightMode(newNightMode)
 
-        // Recrear actividad para aplicar cambios
         recreate()
     }
 }

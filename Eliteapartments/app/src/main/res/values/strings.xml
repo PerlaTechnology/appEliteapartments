@@ -23,4 +23,15 @@
     <string name="detalles">Detalles</string>
     <string name="cambiar_theme">Alternar tema</string>
     <string name="eliminar">Eliminar</string>
+    <string name="title_eliminated">Se eliminara constantemente</string>
+    <string name="subtitle_eliminated">¿Confirma la eliminación de la propiedad?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="title_saved">¿Confirma la ubicación de la propiedad?</string>
+    <string name="subtitle_saved">La ubicación no ha sido guardada. ¿Deseas guardarla ahora?</string>
+    <string name="selected_ubication">Selecciona una ubicación</string>
+    <string name="sube_fotos">Sube al menos 5 fotos</string>
+    <string name="propiedad_valida">La propiedad es válida</string>
+    <string name="datos_numeros_incorrectos">Hay datos incorrectos, revise los campos numéricos.</string>
+    <string name="complete_todos">Por favor, complete todos los campos.</string>
 </resources>

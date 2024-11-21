@@ -8,11 +8,9 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
@@ -26,6 +24,9 @@ import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
 import com.hersonviveros.eliteapartments.utils.Permissions
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
+import com.hersonviveros.eliteapartments.utils.RecyclerViewAnimationUtils
+import com.hersonviveros.eliteapartments.utils.convertInt
+import com.hersonviveros.eliteapartments.utils.convertStr
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -43,14 +44,7 @@ class SavedActivity : BaseActivity() {
 
     private val pickImages =
         registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
-            if (uris.size < 5) {
-                showToast("Sube al menos 5 fotos")
-            }
-            imageUris.clear()
-            imageUris.addAll(uris)
-
-            photoAdapter.setData(imageUris)
-
+            resultImages(uris)
         }
 
 
@@ -74,6 +68,16 @@ class SavedActivity : BaseActivity() {
 
     }
 
+    private fun resultImages(uris: List<Uri>) {
+        if (uris.size < 5) {
+            showToast(getString(R.string.sube_fotos))
+        }
+        imageUris.clear()
+        imageUris.addAll(uris)
+
+        photoAdapter.setData(imageUris)
+    }
+
     private fun setupToolbar() {
         setSupportActionBar(binding.include.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -91,17 +95,17 @@ class SavedActivity : BaseActivity() {
 
     private fun savedData() {
         if (imageUris.size < 5) {
-            showToast("Sube al menos 5 fotos")
+            showToast(getString(R.string.sube_fotos))
             return
         }
         val uriStrings = convertUriListToStringList(imageUris)
         property = PropertyEntity(
             propertyType = selectedItem,
-            maxGuests = convertInt(binding.editTextMaxGuests),
-            beds = convertInt(binding.editTextBeds),
-            bathrooms = convertInt(binding.editTextBaths),
-            title = convertStr(binding.editTextTitle),
-            description = convertStr(binding.editTextDescription),
+            maxGuests = binding.editTextMaxGuests.convertInt(this),
+            beds = binding.editTextBeds.convertInt(this),
+            bathrooms = binding.editTextBaths.convertInt(this),
+            title = binding.editTextTitle.convertStr(this),
+            description = binding.editTextDescription.convertStr(this),
             photos = uriStrings,
             location = listOf()
         )
@@ -119,7 +123,7 @@ class SavedActivity : BaseActivity() {
             if (state == null) return@observe
             when (state) {
                 PropertyViewModel.ValidationState.VALID -> {
-                    showToast("La propiedad es válida")
+                    showToast(getString(R.string.propiedad_valida))
 
                     val intent = Intent(this, MapsActivity::class.java)
                     intent.putExtra(DATA_INTENT, property)
@@ -128,11 +132,11 @@ class SavedActivity : BaseActivity() {
                 }
 
                 PropertyViewModel.ValidationState.INVALID -> {
-                    showToast("Hay datos incorrectos, revise los campos numéricos.")
+                    showToast(getString(R.string.datos_numeros_incorrectos))
                 }
 
                 PropertyViewModel.ValidationState.EMPTY_FIELDS -> {
-                    showToast("Por favor, complete todos los campos.")
+                    showToast(getString(R.string.complete_todos))
                 }
             }
         }
@@ -157,7 +161,6 @@ class SavedActivity : BaseActivity() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Opcional: Acción a realizar si no se selecciona ningún elemento
                 }
             }
     }
@@ -166,6 +169,7 @@ class SavedActivity : BaseActivity() {
         binding.rvImages.adapter = photoAdapter
         val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
         touchHelper.attachToRecyclerView(binding.rvImages)
+        RecyclerViewAnimationUtils.runLayoutAnimation(binding.rvImages)
     }
 
     private fun convertUriListToStringList(uriList: List<Uri?>): List<String> {
@@ -192,22 +196,5 @@ class SavedActivity : BaseActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun convertStr(edt: EditText): String {
-        val tex = edt.text.toString()
-        if (tex.isEmpty()) {
-            edt.error = getString(R.string.error_edt)
-        }
-        return tex
-    }
-
-    private fun convertInt(edt: EditText): Int {
-        var tex = edt.text.toString()
-        if (tex.isEmpty()) {
-            edt.error = getString(R.string.error_edt)
-            tex = "0"
-        }
-        return tex.toInt()
     }
 }

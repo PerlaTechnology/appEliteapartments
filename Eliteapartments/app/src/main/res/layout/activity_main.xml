@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="@dimen/_15dp">
 
         <Button
             android:id="@+id/btnCreateProperty"
@@ -25,14 +25,14 @@
             android:id="@+id/btnViewProperty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_12dp"
             android:text="@string/ver_propiedades" />
 
         <Button
             android:id="@+id/btnTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_12dp"
             android:text="@string/cambiar_theme" />
 
     </LinearLayout>

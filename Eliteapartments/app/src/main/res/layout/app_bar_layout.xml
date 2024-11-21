@@ -4,7 +4,6 @@
     android:id="@+id/main_app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardview_light_background"
     android:elevation="0dp"
     android:fitsSystemWindows="true"
     app:elevation="0dp">
@@ -13,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:scrollbarSize="12sp"
+        android:scrollbarSize="@dimen/_12dp"
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_custom_back_rounded">
 

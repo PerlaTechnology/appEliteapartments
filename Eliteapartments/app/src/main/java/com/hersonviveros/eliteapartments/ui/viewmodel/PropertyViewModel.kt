@@ -1,9 +1,12 @@
 package com.hersonviveros.eliteapartments.ui.viewmodel
 
+import android.app.Activity
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.data.repository.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -84,9 +87,27 @@ class PropertyViewModel @Inject constructor(
         }
     }
 
-    fun deleteProperty(property: PropertyEntity) {
+    private fun deleteProperty(property: PropertyEntity) {
         viewModelScope.launch {
             repository.deleteProperties(property)
         }
     }
+
+    fun showDeletePropertyDialog(context: Activity, property: PropertyEntity) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.title_eliminated))
+        builder.setMessage(context.getString(R.string.subtitle_eliminated))
+            .setPositiveButton(context.getString(R.string.si)) { dialog, _ ->
+                deleteProperty(property)
+                dialog.dismiss()
+                context.finish()
+            }
+            .setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
 }

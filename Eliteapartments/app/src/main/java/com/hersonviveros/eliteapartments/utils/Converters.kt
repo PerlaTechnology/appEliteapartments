@@ -26,7 +26,7 @@ class Converters {
     fun fromLocationList(locationList: List<Position>?): String? {
         if (locationList == null) return null
         val gson = Gson()
-        return gson.toJson(locationList) // Convierte la lista a un String JSON
+        return gson.toJson(locationList)
     }
 
     @TypeConverter
@@ -37,6 +37,6 @@ class Converters {
         return gson.fromJson(
             locationString,
             listType
-        ) // Convierte el JSON de nuevo a una lista de Position
+        )
     }
 }

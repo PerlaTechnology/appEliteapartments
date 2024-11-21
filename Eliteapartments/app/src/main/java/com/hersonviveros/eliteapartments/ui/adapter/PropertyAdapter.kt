@@ -49,13 +49,12 @@ class PropertyAdapter(
     inner class ViewHolders(private val binding: ItemPropertyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(entity: PropertyEntity) {
-
             Glide.with(binding.root)
                 .load(entity.photos[0])
                 .placeholder(R.drawable.placeholder)
                 .into(binding.imgProperties)
+
             binding.tvTitle.text = entity.title
             binding.tvSubTitle.text = entity.description
 

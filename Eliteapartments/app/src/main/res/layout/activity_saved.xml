@@ -22,9 +22,9 @@
         <Spinner
             android:id="@+id/spinner_property_type"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="@dimen/_50dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_12dp"
             android:background="@drawable/custom_spinner_background" />
 
         <!-- Máximo de huéspedes -->
@@ -32,8 +32,8 @@
             android:id="@+id/edit_text_max_guests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:hint="@string/maximo_huespedes"
             android:inputType="number"
             android:maxLength="3"
@@ -44,8 +44,8 @@
             android:id="@+id/edit_text_beds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:hint="@string/camas_por_propiedad"
             android:inputType="number"
             android:maxLength="2"
@@ -56,8 +56,8 @@
             android:id="@+id/edit_text_baths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:hint="@string/cantidad_banos"
             android:inputType="number"
             android:maxLength="2"
@@ -68,8 +68,8 @@
             android:id="@+id/edit_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:hint="@string/titulo_propiedad"
             android:inputType="textCapWords"
             android:maxLength="24"
@@ -80,8 +80,8 @@
             android:id="@+id/edit_text_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:hint="@string/descripcion_propiedad"
             android:inputType="textMultiLine|textCapWords"
             android:maxLength="124"
@@ -91,7 +91,7 @@
             android:id="@+id/rv_images"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
             tools:itemCount="5"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_12dp"
             android:text="@string/agregar_fotos" />
 
         <!--Botón para guardar la propiedad-->
@@ -111,8 +111,8 @@
             android:id="@+id/btn_save_property"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_12dp"
             android:text="@string/guardar_propiedad" />
 
     </LinearLayout>
