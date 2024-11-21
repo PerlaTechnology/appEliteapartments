@@ -10,6 +10,8 @@
     <color name="light_background">#FFFFFF</color>
     <color name="light_surface">#F5F5F5</color>
     <color name="light_on_surface">#000000</color>
+    <color name="input_stroke_color_light">#000000</color>
+    <color name="input_hint_color_light">#000000</color>
 
     <!-- Dark Mode Colors -->
     <color name="dark_primary">#BB86FC</color>
@@ -17,5 +19,7 @@
     <color name="dark_background">#121212</color>
     <color name="dark_surface">#1E1E1E</color>
     <color name="dark_on_surface">#FFFFFF</color>
+    <color name="input_stroke_color_dark">#FFFFFF</color>
+    <color name="input_hint_color_dark">#FFFFFF</color>
 
 </resources>

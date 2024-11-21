@@ -10,74 +10,82 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical"
+        android:textColor="?attr/colorOnSurface">
 
         <include
             android:id="@+id/include"
             layout="@layout/app_bar_layout" />
 
-        <!-- Tipo de propiedad -->
+        <!--Tipo de propiedad -->
         <Spinner
-            android:layout_marginTop="12dp"
             android:id="@+id/spinner_property_type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/custom_spinner_background" />
 
         <!-- Máximo de huéspedes -->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:id="@+id/edit_text_max_guests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/maximo_huespedes"
             android:inputType="number"
-            android:maxLength="5"
-            app:met_floatingLabel="highlight" />
+            android:maxLength="3"
+            tools:ignore="Autofill" />
 
-        <!-- Camas por propiedad -->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <!--Camas por propiedad-->
+        <EditText
             android:id="@+id/edit_text_beds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/camas_por_propiedad"
             android:inputType="number"
-            android:maxLength="4"
-            app:met_floatingLabel="highlight" />
+            android:maxLength="2"
+            tools:ignore="Autofill" />
 
-        <!-- Cantidad de baños -->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <!--Cantidad de baños-->
+        <EditText
             android:id="@+id/edit_text_baths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/cantidad_banos"
             android:inputType="number"
-            android:maxLength="4"
-            app:met_floatingLabel="highlight" />
+            android:maxLength="2"
+            tools:ignore="Autofill" />
 
-        <!-- Título de la propiedad -->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <!--Título de la propiedad-->
+        <EditText
             android:id="@+id/edit_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/titulo_propiedad"
+            android:inputType="textCapWords"
             android:maxLength="24"
-            app:met_floatingLabel="highlight" />
+            tools:ignore="Autofill" />
 
-        <!-- Descripción de la propiedad -->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <!--Descripción de la propiedad-->
+        <EditText
             android:id="@+id/edit_text_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/descripcion_propiedad"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textCapWords"
             android:maxLength="124"
-            app:met_floatingLabel="highlight" />
+            tools:ignore="Autofill" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_images"
@@ -89,7 +97,7 @@
             tools:itemCount="5"
             tools:listitem="@layout/item_images" />
 
-        <!-- Fotos -->
+        <!--Fotos-->
         <Button
             android:id="@+id/btn_add_photos"
             android:layout_width="wrap_content"
@@ -98,7 +106,7 @@
             android:layout_marginTop="12dp"
             android:text="@string/agregar_fotos" />
 
-        <!-- Botón para guardar la propiedad -->
+        <!--Botón para guardar la propiedad-->
         <Button
             android:id="@+id/btn_save_property"
             android:layout_width="match_parent"

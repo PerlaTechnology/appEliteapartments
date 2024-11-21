@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -25,7 +26,6 @@ import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
 import com.hersonviveros.eliteapartments.utils.Permissions
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
-import com.rengwuxian.materialedittext.MaterialEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -194,7 +194,7 @@ class SavedActivity : BaseActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun convertStr(edt: MaterialEditText): String {
+    private fun convertStr(edt: EditText): String {
         val tex = edt.text.toString()
         if (tex.isEmpty()) {
             edt.error = getString(R.string.error_edt)
@@ -202,7 +202,7 @@ class SavedActivity : BaseActivity() {
         return tex
     }
 
-    private fun convertInt(edt: MaterialEditText): Int {
+    private fun convertInt(edt: EditText): Int {
         var tex = edt.text.toString()
         if (tex.isEmpty()) {
             edt.error = getString(R.string.error_edt)

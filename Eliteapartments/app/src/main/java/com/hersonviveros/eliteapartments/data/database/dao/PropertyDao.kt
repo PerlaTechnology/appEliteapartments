@@ -1,5 +1,6 @@
 package com.hersonviveros.eliteapartments.data.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,10 +13,7 @@ import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 interface PropertyDao {
 
     @Query("SELECT * FROM PropertyTable")
-    suspend fun getAll(): PropertyEntity?
-
-    @Query("SELECT * FROM PropertyTable")
-    suspend fun getAllProperties(): List<PropertyEntity>
+    fun getAllProperties(): LiveData<List<PropertyEntity>>
 
     @Query("SELECT * FROM PropertyTable WHERE id = :id")
     suspend fun getById(id: String): PropertyEntity?

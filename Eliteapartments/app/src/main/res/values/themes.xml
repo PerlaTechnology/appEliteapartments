@@ -9,4 +9,9 @@
         <item name="colorOnSurface">@color/light_on_surface</item>
     </style>
 
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/input_stroke_color_light</item>
+        <item name="hintTextColor">@color/input_hint_color_light</item>
+    </style>
+
 </resources>

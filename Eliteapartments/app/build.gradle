@@ -69,8 +69,6 @@ dependencies {
 
     // Fragment
     implementation libs.androidx.fragment.ktx
-    //CircleImage
-    implementation libs.circleimageview
     // Activity
     implementation libs.androidx.activity.ktx
     // ViewModel
@@ -85,8 +83,6 @@ dependencies {
     //Room
     implementation libs.androidx.room.ktx
     kapt libs.androidx.room.compiler
-    //Animacion
-    implementation libs.shimmer
     //Glide
     implementation libs.glide
     kapt libs.compiler
@@ -97,8 +93,6 @@ dependencies {
     //Squareup
     implementation libs.okhttp
 
-    implementation libs.library
-    implementation libs.androidx.drawerlayout
     implementation libs.gson
     implementation libs.play.services.maps
 }

@@ -22,4 +22,5 @@
     <string name="banos">Baños</string>
     <string name="detalles">Detalles</string>
     <string name="cambiar_theme">Alternar tema</string>
+    <string name="eliminar">Eliminar</string>
 </resources>

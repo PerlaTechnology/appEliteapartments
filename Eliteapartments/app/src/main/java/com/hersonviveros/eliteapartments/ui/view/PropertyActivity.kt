@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hersonviveros.eliteapartments.R
@@ -15,6 +14,7 @@ import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
+import com.hersonviveros.eliteapartments.utils.RecyclerViewAnimationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +36,6 @@ class PropertyActivity : BaseActivity() {
     }
 
     private fun observer() {
-        viewModel.allProperties()
         viewModel.propertyAllList.observe(this) { listProperties ->
             if (listProperties.isNotEmpty()) {
                 propertyAdapter.setData(listProperties!!)
@@ -54,6 +53,7 @@ class PropertyActivity : BaseActivity() {
             binding.tvProperties.adapter = propertyAdapter
             val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(propertyAdapter))
             touchHelper.attachToRecyclerView(binding.tvProperties)
+            RecyclerViewAnimationUtils.runLayoutAnimation(binding.tvProperties)
         }
     }
 

@@ -40,7 +40,7 @@
             android:layout_below="@+id/img_properties"
             android:layout_marginStart="5dp"
             android:layout_toStartOf="@+id/img_go"
-            android:textColor="@color/black"
+            style="@style/EditTextStyle"
             android:textStyle="bold"
             tools:text="Title" />
 

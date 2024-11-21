@@ -8,4 +8,9 @@
         <item name="colorSurface">@color/dark_surface</item>
         <item name="colorOnSurface">@color/dark_on_surface</item>
     </style>
+
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/input_stroke_color_dark</item>
+        <item name="hintTextColor">@color/input_hint_color_dark</item>
+    </style>
 </resources>

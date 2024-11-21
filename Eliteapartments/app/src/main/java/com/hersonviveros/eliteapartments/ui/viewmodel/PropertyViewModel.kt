@@ -18,9 +18,6 @@ class PropertyViewModel @Inject constructor(
     private val _validationState = MutableLiveData<ValidationState>()
     val validationState: LiveData<ValidationState> get() = _validationState
 
-    private val _propertyList = MutableLiveData<List<PropertyEntity>>()
-    val propertyAllList: LiveData<List<PropertyEntity>> = _propertyList
-
     private val _typesProperties = MutableLiveData<List<String>>()
     val typesProperties: LiveData<List<String>> = _typesProperties
 
@@ -30,11 +27,7 @@ class PropertyViewModel @Inject constructor(
         EMPTY_FIELDS
     }
 
-    fun allProperties(){
-        viewModelScope.launch {
-            _propertyList.value = repository.getAllProperties()
-        }
-    }
+    val propertyAllList: LiveData<List<PropertyEntity>> = repository.getAllProperties()
 
     fun listProperties() {
         _typesProperties.value = listOf(
@@ -71,7 +64,7 @@ class PropertyViewModel @Inject constructor(
         return true
     }
 
-    fun updateProperty(property: PropertyEntity){
+    fun updateProperty(property: PropertyEntity) {
         viewModelScope.launch {
             if (!validateProperty(property)) return@launch
             repository.updateProperties(property)
@@ -88,6 +81,12 @@ class PropertyViewModel @Inject constructor(
         viewModelScope.launch {
             if (!validateProperty(property)) return@launch
             repository.insertProperty(property)
+        }
+    }
+
+    fun deleteProperty(property: PropertyEntity) {
+        viewModelScope.launch {
+            repository.deleteProperties(property)
         }
     }
 }

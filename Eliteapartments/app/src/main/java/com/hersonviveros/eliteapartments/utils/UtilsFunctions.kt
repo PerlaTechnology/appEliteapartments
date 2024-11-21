@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import com.rengwuxian.materialedittext.MaterialEditText
+import android.widget.EditText
 
-fun MaterialEditText.converters(): String {
+fun EditText.converters(): String {
     return this.text.toString().trim()
 }
 
