@@ -13,7 +13,6 @@ import com.hersonviveros.eliteapartments.ui.adapter.PropertyAdapter
 import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
-import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import com.hersonviveros.eliteapartments.utils.RecyclerViewAnimationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,8 +50,6 @@ class PropertyActivity : BaseActivity() {
         binding.tvProperties.apply {
             binding.tvProperties.layoutManager = LinearLayoutManager(applicationContext)
             binding.tvProperties.adapter = propertyAdapter
-            val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(propertyAdapter))
-            touchHelper.attachToRecyclerView(binding.tvProperties)
             RecyclerViewAnimationUtils.runLayoutAnimation(binding.tvProperties)
         }
     }

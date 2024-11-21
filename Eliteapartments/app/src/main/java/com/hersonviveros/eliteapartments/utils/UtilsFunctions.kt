@@ -7,7 +7,10 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.widget.EditText
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.hersonviveros.eliteapartments.R
+import com.hersonviveros.eliteapartments.ui.adapter.ImagesAdapter
 import java.io.File
 
 fun EditText.convertStr(context: Context): String {
@@ -48,4 +51,30 @@ fun List<String>.convertStringListToUriList(): List<Uri> {
             null
         }
     }
+}
+
+//Extension function para configurar drag and drop
+fun RecyclerView.setupDragDrop(adapter: ImagesAdapter) {
+    val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN or
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
+    ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            val fromPosition = viewHolder.adapterPosition
+            val toPosition = target.adapterPosition
+
+            (recyclerView.adapter as? ImagesAdapter)?.onItemMove(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            //No implementamos swipe
+        }
+    })
+
+    itemTouchHelper.attachToRecyclerView(this)
 }

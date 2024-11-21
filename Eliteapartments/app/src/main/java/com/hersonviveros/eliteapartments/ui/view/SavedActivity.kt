@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
 import com.hersonviveros.eliteapartments.databinding.ActivitySavedBinding
@@ -20,13 +19,11 @@ import com.hersonviveros.eliteapartments.ui.viewmodel.PropertyViewModel
 import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.EMPTY
-import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_READ_MEMORY
-import com.hersonviveros.eliteapartments.utils.Constants.Companion.REQUEST_CODE_WRITE_MEMORY
 import com.hersonviveros.eliteapartments.utils.Permissions
-import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import com.hersonviveros.eliteapartments.utils.RecyclerViewAnimationUtils
 import com.hersonviveros.eliteapartments.utils.convertInt
 import com.hersonviveros.eliteapartments.utils.convertStr
+import com.hersonviveros.eliteapartments.utils.setupDragDrop
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -38,9 +35,10 @@ class SavedActivity : BaseActivity() {
     private lateinit var binding: ActivitySavedBinding
     private val viewModel: PropertyViewModel by viewModels()
     private var selectedItem: String = EMPTY
-    private val photoAdapter = ImagesAdapter()
+    private lateinit var permissionsHandler: Permissions
+    private lateinit var photoAdapter: ImagesAdapter
     private lateinit var property: PropertyEntity
-    private val imageUris = mutableListOf<Uri>()
+    private var imageUris = mutableListOf<Uri>()
 
     private val pickImages =
         registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
@@ -53,6 +51,7 @@ class SavedActivity : BaseActivity() {
         binding = ActivitySavedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        permissionsHandler = Permissions(this)
         setupToolbar()
         observe()
         permission()
@@ -68,9 +67,19 @@ class SavedActivity : BaseActivity() {
 
     }
 
+    private fun updateListImages() {
+        photoAdapter = ImagesAdapter { updateList ->
+            imageUris.addAll(updateList)
+        }
+        binding.rvImages.adapter = photoAdapter
+        binding.rvImages.setupDragDrop(photoAdapter)
+    }
+
     private fun resultImages(uris: List<Uri>) {
         if (uris.size < 5) {
             showToast(getString(R.string.sube_fotos))
+        }  else {
+            updateListImages()
         }
         imageUris.clear()
         imageUris.addAll(uris)
@@ -86,11 +95,17 @@ class SavedActivity : BaseActivity() {
     }
 
     private fun openImages() {
-        Permissions(this).takePermission(REQUEST_CODE_READ_MEMORY) { bool ->
-            if (bool) {
+        permissionsHandler.checkAndRequestPermission(
+            Permissions.PermissionType.READ_STORAGE
+        ) { isGranted ->
+            if (isGranted) {
+                // Perform storage write operation
                 pickImages.launch("image/*")
+            } else {
+                showToast(getString(R.string.faltan_permisos))
             }
         }
+
     }
 
     private fun savedData() {
@@ -166,9 +181,8 @@ class SavedActivity : BaseActivity() {
     }
 
     private fun setupPhotoRecyclerView() {
+        photoAdapter = ImagesAdapter{}
         binding.rvImages.adapter = photoAdapter
-        val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
-        touchHelper.attachToRecyclerView(binding.rvImages)
         RecyclerViewAnimationUtils.runLayoutAnimation(binding.rvImages)
     }
 
@@ -190,8 +204,21 @@ class SavedActivity : BaseActivity() {
     }
 
     private fun permission() {
-        Permissions(this).takePermission(REQUEST_CODE_WRITE_MEMORY) {}
-        Permissions(this).takePermission(REQUEST_CODE_READ_MEMORY) {}
+        permissionsHandler.checkAndRequestPermission(
+            Permissions.PermissionType.WRITE_STORAGE
+        ) {}
+        permissionsHandler.checkAndRequestPermission(
+            Permissions.PermissionType.READ_STORAGE
+        ) {}
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsHandler.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun showToast(message: String) {

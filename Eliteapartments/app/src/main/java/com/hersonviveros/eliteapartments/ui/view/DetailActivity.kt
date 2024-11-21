@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.data.database.entities.PropertyEntity
@@ -15,7 +14,6 @@ import com.hersonviveros.eliteapartments.utils.BaseActivity
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.DATA_INTENT_DETAIL
 import com.hersonviveros.eliteapartments.utils.Constants.Companion.TYPE_DETAIL
-import com.hersonviveros.eliteapartments.utils.PhotoItemTouchHelperCallback
 import com.hersonviveros.eliteapartments.utils.RecyclerViewAnimationUtils
 import com.hersonviveros.eliteapartments.utils.convertStringListToUriList
 import com.hersonviveros.eliteapartments.utils.fromHtml
@@ -26,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val photoAdapter = ImagesAdapter()
+    private lateinit var photoAdapter: ImagesAdapter
     private lateinit var entity: PropertyEntity
     private val viewModel: PropertyViewModel by viewModels()
 
@@ -94,11 +92,10 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun setupPhotoRecyclerView() {
+        photoAdapter = ImagesAdapter { }
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvImages.setLayoutManager(layoutManager)
         binding.rvImages.adapter = photoAdapter
-        val touchHelper = ItemTouchHelper(PhotoItemTouchHelperCallback(photoAdapter))
-        touchHelper.attachToRecyclerView(binding.rvImages)
         RecyclerViewAnimationUtils.runLayoutAnimation(binding.rvImages)
     }
 

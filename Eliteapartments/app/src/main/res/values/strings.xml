@@ -34,4 +34,5 @@
     <string name="propiedad_valida">La propiedad es válida</string>
     <string name="datos_numeros_incorrectos">Hay datos incorrectos, revise los campos numéricos.</string>
     <string name="complete_todos">Por favor, complete todos los campos.</string>
+    <string name="faltan_permisos">Faltan permisos necesarios</string>
 </resources>

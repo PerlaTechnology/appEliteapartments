@@ -12,7 +12,9 @@ import com.hersonviveros.eliteapartments.R
 import com.hersonviveros.eliteapartments.utils.ItemTouchHelperAdapter
 
 
-class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ViewHolders>(), ItemTouchHelperAdapter {
+class ImagesAdapter(
+    private val onItemMoved: (List<Uri>) -> Unit
+) : RecyclerView.Adapter<ImagesAdapter.ViewHolders>(), ItemTouchHelperAdapter {
 
     private val photos = mutableListOf<Uri>()
 
@@ -28,6 +30,7 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ViewHolders>(), ItemTou
         val movedPhoto = photos.removeAt(fromPosition)
         photos.add(toPosition, movedPhoto)
         notifyItemMoved(fromPosition, toPosition)
+        onItemMoved(photos)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolders {

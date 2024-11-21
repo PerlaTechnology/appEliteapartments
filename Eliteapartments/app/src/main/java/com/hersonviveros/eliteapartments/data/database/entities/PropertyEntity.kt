@@ -15,7 +15,7 @@ data class PropertyEntity(
     @ColumnInfo(name = "bathrooms") val bathrooms: Int,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "photos") val photos: List<String>,
+    @ColumnInfo(name = "photos") var photos: List<String>,
     @ColumnInfo(name = "location") var location: List<Position>
 ) : Serializable
 
