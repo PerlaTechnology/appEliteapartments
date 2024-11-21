@@ -1,48 +1,61 @@
-**Aplicación de prueba para el proceso de selección**
+**Aplicación de Gestión de Propiedades**
 
-### Desarrollar una aplicación móvil que permita gestionar propiedades.
+### Descripción del Proyecto
 
-**Author: Herson Viveros (Semi Sr. Android Developer)**
+## Aplicación móvil nativa desarrollada en Android que permite gestionar propiedades
 
-- [La aplicación aplicara las siguientes normas:]
+## inmobiliarias con las siguientes características principales:
 
-## Arquitectura MVVM
-La arquitectura MVVM (Modelo-Vista-ViewModel) es una forma de diseñar aplicaciones
-que separa la lógica de la vista y el modelo de datos. En este proyecto,
-he utilizado esta arquitectura para separar claramente las responsabilidades
-de cada componente de la aplicación.
+- Creación de propiedades con información detallada (tipo, capacidad, características)
+- Gestión de imágenes con capacidad de reordenamiento
+- Integración con Google Maps para ubicación de propiedades
+- Soporte para modo oscuro y claro
+- Persistencia local de datos
+- Validaciones de formularios
 
-**Model**
-En el paquete "model" se encuentran los modelos de datos y las clases encargadas
-de la comunicación con el servidor (si la aplicación lo requiere).
+**Arquitectura y Tecnologías Implementadas**
 
-**View**
-En el paquete "view" se encuentran las clases encargadas de
-la interfaz de usuario (Activity, Fragment, etc.) y su correspondiente diseño XML.
+### **-Arquitectura MVVM:
+** Implementación de Model-View-ViewModel para una clara separación de responsabilidades
 
-**ViewModel**
-En el paquete "viewmodel" se encuentran las clases encargadas
-de la lógica de la aplicación y de proporcionar los datos necesarios a la vista.
-Los viewmodels se comunican con el modelo y exponen datos a la vista a través de LiveData.
+- Model: Modelos de datos y lógica de negocio
+- View: Interfaces de usuario y layouts XML
+- ViewModel: Lógica de presentación y gestión de estados
 
-**HILT**
-Framework de inyección de dependencias para Android que se encarga de simplificar
-y automatizar el proceso de creación, configuración y gestión de objetos dependientes.
+### **-Inyección de Dependencias:
+** Implementación con Hilt para una gestión eficiente de dependencias
 
-**Room**
-Biblioteca de persistencia de datos que simplifica el acceso y almacenamiento de
-datos en una base de datos SQLite en dispositivos Android, utilizando una arquitectura
-basada en componentes para integrarse fácilmente con otras bibliotecas de Android.
+### **-Persistencia de Datos:**
 
-**Kotlin**
-Kotlin es un lenguaje de programación moderno y seguro que se ha convertido en
-la opción preferida de nosotros los desarrolladores para el desarrollo de aplicaciones
-Android. En este proyecto, he utilizado Kotlin para escribir todo el código de la aplicación.
+- Room Database para almacenamiento local
+- SharedPreferences para preferencias de usuario
 
-**Git**
-Git es un sistema de control de versiones que nos permite mantener un registro de todos
-los cambios realizados en el código de la aplicación. En este proyecto, he utilizado
-Git para gestionar el código fuente de la aplicación.
+**Pasos para Construir y Ejecutar la Aplicación**
 
+## 1. Requisitos Previos:
+
+- Android Studio Arctic Fox o superior
+- JDK 11 o superior
+- SDK mínimo: API 24 (Android 7.0)
+- SDK objetivo: API 34 (Android 14)
+
+## 2. Clonar el Repositorio:
+
+- git clone https://github.com/PerlaTechnology/appEliteapartments.git
+
+## 3. Configuración del Proyecto:
+
+- Abrir Android Studio
+- Seleccionar "Open an Existing Project"
+- Navegar hasta la carpeta del proyecto y seleccionarla
+
+## 4. Compilar y Ejecutar:
+
+- Conectar un dispositivo Android o iniciar un emulador
+- Presionar el botón "Run" en Android Studio
+- Seleccionar el dispositivo objetivo
+
+**Autor
+Herson Viveros (Semi Sr. Android Developer)**
 
 ## ¡Gracias por leer!
